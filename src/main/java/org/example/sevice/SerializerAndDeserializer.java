@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Getter
-@Setter
+
 public abstract class SerializerAndDeserializer<T> {
 
     private Class<T> persistentClass;

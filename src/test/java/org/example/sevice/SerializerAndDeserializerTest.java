@@ -29,20 +29,20 @@ class SerializerAndDeserializerTest {
         news.setListVideo(listVideo);
         SerializerAndDeserializer<News> stringSerializerAndDeserializer = new SerializerAndDeserializer<News>() {};
         byte[] arr = stringSerializerAndDeserializer.serialize(news);
-        assertNotNull(arr);
+        assertTrue(arr.length > 0);
     }
 
     @Test
     void deserialize() {
-//        List<String> listPhotos = new ArrayList<>();
-//        Collections.addAll(listPhotos, "photo1", "photo2");
-//        List<String> listVideo = new ArrayList<>();
-//        Collections.addAll(listVideo, "video1", "video2");
-//        news.setListPhotos(listPhotos);
-//        news.setListVideo(listVideo);
-//        SerializerAndDeserializer<News> stringSerializerAndDeserializer = new SerializerAndDeserializer<News>() {};
-//        byte[] arr = stringSerializerAndDeserializer.serialize(news);
-//        assertNotNull(arr);
-//        assertEquals(news, stringSerializerAndDeserializer.deserialize(arr));
+        List<String> listPhotos = new ArrayList<>();
+        Collections.addAll(listPhotos, "photo1", "photo2");
+        List<String> listVideo = new ArrayList<>();
+        Collections.addAll(listVideo, "video1", "video2");
+        news.setListPhotos(listPhotos);
+        news.setListVideo(listVideo);
+        SerializerAndDeserializer<News> stringSerializerAndDeserializer = new SerializerAndDeserializer<News>() {};
+        byte[] arr = stringSerializerAndDeserializer.serialize(news);
+        assertNotNull(arr);
+        assertEquals(news, stringSerializerAndDeserializer.deserialize(arr));
     }
 }

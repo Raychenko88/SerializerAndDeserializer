@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,30 +25,21 @@ public abstract class SerializerAndDeserializer<T> {
     }
 
     public byte[] serialize(T object) {
-        String jsonStr = "";
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            jsonStr = mapper.writeValueAsString(object);
+            return new ObjectMapper().writeValueAsString(object).getBytes();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-        return jsonStr.getBytes();
+        throw new RuntimeException("serialize does not work");
     }
 
-    public T deserialize(byte[] arr){
-        T object = null;
-        String stringBytes = null;
+    public T deserialize(byte[] arr) {
+        String stringBytes = new String(arr, Charset.defaultCharset());
         try {
-            stringBytes = new String (arr, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        try {
-             object = new ObjectMapper().readValue(stringBytes, persistentClass);
+            return new ObjectMapper().readValue(stringBytes, persistentClass);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return object;
+        throw new RuntimeException("deserialize does not work");
     }
 }
